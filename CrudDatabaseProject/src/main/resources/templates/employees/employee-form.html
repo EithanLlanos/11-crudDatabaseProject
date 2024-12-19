@@ -14,7 +14,6 @@
     <!--    Use a placeholder on action as a fallback-->
     <form action="#" method="post" th:action="@{/employees/form}" th:object="${employee}">
         <input name="_method" th:if="${id != null}" type="hidden" value="put">
-        <!--        <input type="hidden" name="_method" th:if="${employee.id != null}" value="put">-->
 
         <input hidden="hidden" th:field="*{id}" type="text">
         First Name: <input class="form-control mb-4 w-25 border-black" placeholder="First name" th:field="*{firstName}"

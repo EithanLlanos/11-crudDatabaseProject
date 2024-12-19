@@ -54,16 +54,28 @@ public class EmployeeController {
     }
 
     // add mapping for update
-    @GetMapping("/formUpdate")
+    @GetMapping("/update")
     public String showFormForUpdate(@RequestParam("employeeId") int theId, Model theModel) {
         Optional<Employee> theEmployee = employeeService.findById(theId);
         theModel.addAttribute("employee", theEmployee);
         return "employees/employee-form";
     }
 
-    @PutMapping("/form")
+    @PutMapping("/update")
     public String updateEmployee(@ModelAttribute("employee") Employee theEmployee) {
         employeeService.save(theEmployee);
         return "redirect:/employees/list";
     }
+
+    //    add mapping for delete
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam("employeeId") int theId, Model theModel) {
+
+        // delete the employee
+        employeeService.deleteById(theId);
+
+        // redirect
+        return "redirect:/employees/list";
+    }
+
 }
