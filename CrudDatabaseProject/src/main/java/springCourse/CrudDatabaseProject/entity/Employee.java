@@ -21,7 +21,6 @@ public class Employee {
     private String Email;
 
     public Employee() {
-
     }
 
     public Employee(String firstName, String lastName, String email) {

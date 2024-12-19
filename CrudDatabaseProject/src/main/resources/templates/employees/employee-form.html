@@ -12,10 +12,16 @@
     <hr>
     <p class="h4 mb-4">Save Employee</p>
     <!--    Use a placeholder on action as a fallback-->
-    <form action="#" method="post" th:action="@{/employees/showFormForAdd}" th:object="${employee}">
-        First Name: <input class="form-control mb-4 w-25 border-black" th:field="*{firstName}" type="text">
-        Last Name: <input class="form-control mb-4 w-25 border-black" th:field="*{lastName}" type="text">
-        Email: <input class="form-control mb-4 w-25 border-black" th:field="*{email}" type="text">
+    <form action="#" method="post" th:action="@{/employees/form}" th:object="${employee}">
+        <input name="_method" th:if="${id != null}" type="hidden" value="put">
+        <!--        <input type="hidden" name="_method" th:if="${employee.id != null}" value="put">-->
+
+        <input hidden="hidden" th:field="*{id}" type="text">
+        First Name: <input class="form-control mb-4 w-25 border-black" placeholder="First name" th:field="*{firstName}"
+                           type="text">
+        Last Name: <input class="form-control mb-4 w-25 border-black" placeholder="Last name" th:field="*{lastName}"
+                          type="text">
+        Email: <input class="form-control mb-4 w-25 border-black" placeholder="Email" th:field="*{email}" type="text">
 
         <input class="btn btn-info col-2" type="submit">
     </form>

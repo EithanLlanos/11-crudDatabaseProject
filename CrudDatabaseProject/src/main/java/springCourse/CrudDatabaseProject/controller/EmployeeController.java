@@ -4,14 +4,12 @@ package springCourse.CrudDatabaseProject.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import springCourse.CrudDatabaseProject.entity.Employee;
 import springCourse.CrudDatabaseProject.service.EmployeeService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/employees")
@@ -37,13 +35,13 @@ public class EmployeeController {
     }
 
     // add mapping for {/add}
-    @GetMapping("/showFormForAdd")
+    @GetMapping("/form")
     public String showFormForAdd(Model theModel) {
         theModel.addAttribute("employee", new Employee());
         return "employees/employee-form";
     }
 
-    @PostMapping("/showFormForAdd")
+    @PostMapping("/form")
     public String addEmployee(@ModelAttribute("employee") Employee theEmployee) {
 
         // save employee
@@ -52,6 +50,20 @@ public class EmployeeController {
 
         // REDIRECT TO PREVENT DUPLICATE SUBMISSIONS
 
+        return "redirect:/employees/list";
+    }
+
+    // add mapping for update
+    @GetMapping("/formUpdate")
+    public String showFormForUpdate(@RequestParam("employeeId") int theId, Model theModel) {
+        Optional<Employee> theEmployee = employeeService.findById(theId);
+        theModel.addAttribute("employee", theEmployee);
+        return "employees/employee-form";
+    }
+
+    @PutMapping("/form")
+    public String updateEmployee(@ModelAttribute("employee") Employee theEmployee) {
+        employeeService.save(theEmployee);
         return "redirect:/employees/list";
     }
 }
